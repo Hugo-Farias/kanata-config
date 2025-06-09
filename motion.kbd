@@ -1,0 +1,196 @@
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+  icon-match-layer-name yes
+  ;; rapid-event-delay 5
+  ;; override-release-on-activation yes
+  log-layer-changes no
+)
+
+
+(defsrc
+  ;; esc
+  ;; grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  ;; tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  ;; caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  ;; lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  ;; lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(defalias
+  mot   (layer-switch motion)
+  motS  (layer-toggle motionsft)
+  main  (layer-switch qwerty)
+  up5   (macro-repeat up up up up up 150)
+  down5 (macro-repeat down down down down down 150)
+  capm  (tap-hold 100 200 @mot lctl)
+  skpf  (multi lctl right)
+  skpb  (multi lctl left)
+  delW  (one-shot 1000 (layer-toggle visualdel))
+  selW  (layer-switch visual)
+  copy  (tap-dance 200 ((multi lctl c) (multi lctl x)))
+  paste (tap-dance 200 ((multi lctl v) (multi lmet v)))
+  save  (multi (release-key lsft) (release-key rsft) lctl s)
+  newl  (multi end ret)
+  sell  (macro end home home S-end)
+  dell  (macro left right S-del left)
+  deSel (multi up down)
+  rmet  (multi rmet (layer-toggle quickMotion))
+  lmet  (multi lmet (layer-toggle lmetLayer))
+)
+
+
+(deflayermap qwerty
+  caps @capm
+  rsft (fork rsft caps (lsft))
+  lsft (fork lsft caps (rsft))
+  rmet @rmet
+  lmet @lmet
+  ; (tap-hold 200 200 ; XX)
+)
+
+(deflayermap (quickMotion)
+  . volu
+  , vold
+  spc pp
+  ret comp
+  ___ i
+)
+
+(deflayermap (lmetLayer)
+  q   A-f4
+  f   (multi (release-key lmet) C-A-S-kp*)
+  f1  C-A-S-kp-
+  f2  C-A-S-kp+
+  a   (fork a M-S-left (lsft))
+  ___ g
+)
+
+
+(deflayermap (motion)
+  bspc (fork bspc (multi @main) (lctl))
+  caps lctl
+  j down
+  k up
+  l right
+  h left
+  u home
+  i end
+  a @main
+  s pgup
+  d pgdn
+  f bspc
+  g del
+  q esc
+  r (tap-hold 200 200 comp (layer-toggle sysLayer))
+  w (fork @skpf w (ctl caps))
+  b @skpb
+  c @copy
+  p @paste
+  o @newl
+  y (one-shot 5000 (layer-toggle functionLayer))
+  e slck
+  z (one-shot 1000 (layer-toggle undoLayer))
+  t A-C-tab
+  m @down5
+  n f3
+  , @up5
+  x @delW
+  v @selW
+  ; (multi rctl ; @main)
+  ;; . XX
+  ;; ' XX
+  / C-f
+  esc (multi esc @main)
+  lsft (multi lsft @motS)
+  rsft (multi rsft @motS)
+  rmet @rmet
+  lmet @lmet
+  ___ e
+)
+
+(deflayermap (motionsft)
+  a (fork lrld S-left (lmet))
+  z @save
+  q A-f4
+  rsft (fork rsft @main (lsft))
+  lsft (fork lsft @main (rsft))
+)
+
+(deflayermap (undoLayer)
+  h C-z 
+  j C-z
+  k C-S-z
+  l C-S-z
+)
+
+(deflayermap (sysLayer)
+  k volu
+  j vold
+  h prev
+  l next
+  i pp
+  u pp
+  r comp
+  spc (setmouse 65535 32228)
+)
+
+(deflayermap (functionLayer)
+  t A-C-tab
+  1 f1
+  2 f2
+  3 f3
+  4 f4
+  5 f5
+  6 f6
+  7 f7
+  8 f8
+  9 f9
+  0 f10
+  - f11
+  = f12
+  lalt XX
+)
+
+(deflayermap (visualdel)
+  w (multi lctl del)
+  b (multi lctl bspc)
+  l del
+  h bspc
+  u (macro S-home del)
+  i (macro S-end del)
+  o @dell
+)
+
+(deflayermap (visual)
+  w (multi ctl lsft right)
+  b (multi ctl lsft left)
+  l (multi sft right)
+  h (multi sft left)
+  u (multi (multi lsft home) lsft)
+  i (multi (multi lsft end) lsft)
+  o @sell
+  j (multi sft down)
+  k (multi sft up)
+  d (multi sft pgdn)
+  s (multi sft pgup)
+  e (multi lctl a)
+  c (multi @copy @mot)
+  p (multi @paste @mot)
+  v XX
+  a (multi @deSel @main)
+  q @mot
+  r (multi comp @mot)
+  t @mot
+  y @mot
+  z @mot
+  x @delW
+  f (multi bspc @mot)
+  g (multi del @mot)
+  , (multi sft @up5)
+  m (multi sft @down5)
+  n @mot
+  caps (multi @deSel @mot)
+  esc @mot
+)
+
