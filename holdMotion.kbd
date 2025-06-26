@@ -186,9 +186,10 @@
   ;;e (setmouse 0 65535)
   e (setmouse 65535 55535)
   t (setmouse 32767 3000)
-  y (multi rsft left)
-  o (multi rsft right)
-  u (multi rsft up)
+  y RS-left
+  o RS-right
+  u (macro RS-up 100 RS-down 100 RS-down)
+  p RS-down
 )
 
 
