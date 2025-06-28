@@ -7,7 +7,6 @@
   log-layer-changes no
 )
 
-
 (defsrc
   ;; esc
   ;; grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -16,7 +15,6 @@
   ;; lsft z    x    c    v    b    n    m    ,    .    /    rsft
   ;; lctl lmet lalt           spc            ralt rmet rctl
 )
-
 
 (defalias
   ;; motS  (layer-toggle motionsft)
@@ -51,7 +49,6 @@
   accentSemiCol (multi ; (one-shot 200 (layer-toggle accentLayertil))) 
   accentDoubleQ (tap-hold 200 200 (multi ' (one-shot 200 (layer-toggle accentLayerCirc))) @doubleQuoteMacro)
 )	
-
 
 (deflayermap (main)
   ;; caps lctl
@@ -107,7 +104,6 @@
   . (tap-hold 200 200 . (macro (unicode "<") (unicode ">") (unmod left)))
   ' @accentDoubleQ
 )
-
 
 (deflayermap (lmetLayer)
   q   A-f4
@@ -188,10 +184,9 @@
   t (setmouse 32767 3000)
   y RS-left
   o RS-right
-  u (macro RS-up 100 RS-down 100 RS-down)
+  u RS-up
   p RS-down
 )
-
 
 ;;(deflayermap (motionsft)
 ;;  a (fork lrld S-left (lmet))
@@ -217,7 +212,6 @@
   p @delPaste
   ___ XX
 )
-
 
 (deflayermap (selWord1)
   y @selWB
@@ -251,6 +245,7 @@
   o (macro (unicode "õ") left bspc right)
   u (macro (unicode "ú") left bspc right)
   c (macro (unicode "ç") left bspc right)
+  ' (macro ' 10 ')
   ___ _
 )
 
@@ -261,6 +256,7 @@
   o (macro (unicode "ó") left bspc right)
   u (macro (unicode "ú") left bspc right)
   c (macro (unicode "ç") left bspc right)
+  ; (macro ; 10 ;)
   ___ _
 )
 
@@ -268,6 +264,7 @@
   a (macro (unicode "â") left bspc right)
   e (macro (unicode "ê") left bspc right)
   o (macro (unicode "ô") left bspc right)
+  ' (macro ' 10 ')
   ___ _
 )
 
