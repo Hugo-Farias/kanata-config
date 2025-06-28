@@ -188,7 +188,7 @@
   t (setmouse 32767 3000)
   y RS-left
   o RS-right
-  u (macro RS-up 100 RS-down 100 RS-down)
+  u RS-up
   p RS-down
 )
 
@@ -261,6 +261,7 @@
   o (macro (unicode "ó") left bspc right)
   u (macro (unicode "ú") left bspc right)
   c (macro (unicode "ç") left bspc right)
+  ; (macro ; 10 ;)
   ___ _
 )
 
@@ -268,6 +269,7 @@
   a (macro (unicode "â") left bspc right)
   e (macro (unicode "ê") left bspc right)
   o (macro (unicode "ô") left bspc right)
+  ' (macro ' 10 ')
   ___ _
 )
 
