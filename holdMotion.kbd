@@ -65,16 +65,13 @@
   ' @accentQuote
   ; @accentSemiCol
   ;;rmet @rmet
-  lmet @lmet
-  ;;tab (tap-hold 200 200 tab f21)
-  ;;\ (tap-hold 200 200 \ f21)
-  ;;0 (tap-hold 200 200 0 f21)
-  ;;- (fork - ctl (f21))
+  ;;lmet @lmet
   , (tap-hold 200 200 , f21)
   c (tap-hold 200 200 c f21)
   . (tap-hold 200 200 . f22)
   x (tap-hold 200 200 x f22)
   b (fork b (macro M-b 300 (unmod spc)) (lmet))
+
   ;; Homerow Mods
   ;; a (tap-hold 200 200 a lsft)
   ;; s (tap-hold 200 200 s lctl)
@@ -90,7 +87,7 @@
   ;; rsft (fork rsft caps (lsft))
   ;; lsft (fork lsft caps (rsft))
   ;;rmet @rmet
-  lmet @lmet
+  ;;lmet @lmet
 )
 
 (deflayermap (shiftLayer)
@@ -106,11 +103,11 @@
 )
 
 (deflayermap (lmetLayer)
-  q   A-f4
+  ;;q   A-f4
   ;;f   (multi lalt (unmod kp*))
   ;;f1  C-S-kp-
   ;;f2  C-S-kp+
-  a   (fork a M-S-left (lsft))
+  ;;a   (fork a M-S-left (lsft))
   ;;___ (multi lmet _)
 )
 
