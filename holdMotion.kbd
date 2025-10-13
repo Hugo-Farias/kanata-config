@@ -65,7 +65,7 @@
   ' @accentQuote
   ; @accentSemiCol
   ;;rmet @rmet
-  ;;lmet @lmet
+  lmet @lmet
   , (tap-hold 200 200 , f21)
   c (tap-hold 200 200 c f21)
   . (tap-hold 200 200 . f22)
@@ -103,11 +103,11 @@
 )
 
 (deflayermap (lmetLayer)
-  ;;q   A-f4
+  q   A-f4
   ;;f   (multi lalt (unmod kp*))
   ;;f1  C-S-kp-
   ;;f2  C-S-kp+
-  ;;a   (fork a M-S-left (lsft))
+  a   (fork a M-S-left (lsft))
   ;;___ (multi lmet _)
 )
 
@@ -177,7 +177,8 @@
   i pp
   r comp
   ;;e (setmouse 0 65535)
-  e (setmouse 65535 55535)
+  ;;e (setmouse 65535 55535)
+  e (setmouse 65535 500)
   t (setmouse 32767 3000)
   y RS-left
   o RS-right
