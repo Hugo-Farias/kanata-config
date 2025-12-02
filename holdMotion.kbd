@@ -100,6 +100,7 @@
   , (tap-hold 200 200 , (macro (unicode "<") (unicode ">") (unmod left)))
   . (tap-hold 200 200 . (macro (unicode "<") (unicode ">") (unmod left)))
   ' @accentDoubleQ
+  ; (macro shft ;)
 )
 
 (deflayermap (lmetLayer)
@@ -125,7 +126,6 @@
   i (fork end (multi ctl sft 2) (f20))
   , (fork pgup @up10 (f20))
   m (fork pgdn @down10 (f20))
-  ; (multi rctl ;)
   c @copy
   v spc
   o (fork @newl @selL (lsft))
@@ -178,8 +178,10 @@
   r comp
   ;;e (setmouse 0 65535)
   ;;e (setmouse 65535 55535)
-  e (setmouse 65535 500)
-  t (setmouse 32767 3000)
+  e (setmouse 65535 7000)
+  ;;t (setmouse 32767 3000)
+  t (setmouse 65535 65535)
+  q (macro (setmouse 19535 21767) 30 mlft (setmouse 65535 7000))
   y RS-left
   o RS-right
   u RS-up

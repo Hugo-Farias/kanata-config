@@ -7,7 +7,6 @@
   log-layer-changes no
 )
 
-
 (defsrc
   ;; esc
   ;; grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -17,17 +16,20 @@
   ;; lctl lmet lalt           spc            ralt rmet rctl
 )
 
-
 (defalias
   ;; motS  (layer-toggle motionsft)
   save  (multi (release-key lsft) (release-key rsft) lctl s)
-  copy  (tap-dance 200 ((multi lctl c) (multi lctl x)))
+  copy  (tap-dance 200 ((multi (multi lctl c) (multi lctl c)) (multi lctl x)))
   paste (tap-dance 200 ((multi lctl v) (multi lmet v)))
+  ;; copy  (tap-hold 200 200 C-c (macro C-x esc))
+  ;; paste (tap-hold 200 200 C-v (macro M-v esc))
   selWF (macro right 10 C-left 10 C-S-right)
   selWB (macro left 10 C-right 10 C-S-left)
-  selL  (macro (unmod end) (unmod home) (unmod home) 20 S-end)
-  delL1 (macro (unmod end) (unmod home) (unmod home) 10 S-end S-right del end)
-  delLR (macro-repeat (unmod end) (unmod home) (unmod home) 5 S-end S-right del 20)
+  delPaste (macro tab ret 100 right 100 ret 100 left right)
+  ;;delPaste (macro tab ret 100 right 100 ret esc M-v)
+  selL  (macro (unmod end) (unmod home) (unmod home) 20 S-end right)
+  delL1 (macro (unmod end) 10 right S-up del)
+  delLR (macro-repeat (unmod end) 5 right S-up del 20)
   delL  (multi @delL1 (tap-hold 300 300 XX @delLR))
   dupL  (macro home 20 S-end C-c left right 20 end 20 ret end C-v)
   newl  (macro left right 20 end 20 ret)
@@ -35,8 +37,10 @@
   lmet  (multi lmet (layer-toggle lmetLayer))
   up5   (macro-repeat up up up up up 100)
   down5 (macro-repeat down down down down down 100)
-  left5 (macro-repeat left left left left left 100)
+  left5  (macro-repeat left left left left left 100)
   right5 (macro-repeat right right right right right 100)
+  up10   (macro-repeat up up up up up up up up up up 100)
+  down10 (macro-repeat down down down down down down down down down down 100)
   rsftLayer  (multi rsft (layer-toggle shiftLayer))
   lsftLayer  (multi lsft (layer-toggle shiftLayer))
   quoteMacro (macro ' ' (unmod left))
@@ -45,7 +49,6 @@
   accentSemiCol (multi ; (one-shot 200 (layer-toggle accentLayertil))) 
   accentDoubleQ (tap-hold 200 200 (multi ' (one-shot 200 (layer-toggle accentLayerCirc))) @doubleQuoteMacro)
 )	
-
 
 (deflayermap (main)
   ;; caps lctl
@@ -63,6 +66,12 @@
   ; @accentSemiCol
   ;;rmet @rmet
   lmet @lmet
+  , (tap-hold 200 200 , f21)
+  c (tap-hold 200 200 c f21)
+  . (tap-hold 200 200 . f22)
+  x (tap-hold 200 200 x f22)
+  b (fork b (macro M-b 300 (unmod spc)) (lmet))
+
   ;; Homerow Mods
   ;; a (tap-hold 200 200 a lsft)
   ;; s (tap-hold 200 200 s lctl)
@@ -78,7 +87,7 @@
   ;; rsft (fork rsft caps (lsft))
   ;; lsft (fork lsft caps (rsft))
   ;;rmet @rmet
-  lmet @lmet
+  ;;lmet @lmet
 )
 
 (deflayermap (shiftLayer)
@@ -91,8 +100,8 @@
   , (tap-hold 200 200 , (macro (unicode "<") (unicode ">") (unmod left)))
   . (tap-hold 200 200 . (macro (unicode "<") (unicode ">") (unmod left)))
   ' @accentDoubleQ
+  ; (macro shft ;)
 )
-
 
 (deflayermap (lmetLayer)
   q   A-f4
@@ -100,12 +109,12 @@
   ;;f1  C-S-kp-
   ;;f2  C-S-kp+
   a   (fork a M-S-left (lsft))
-  ;;___ g
+  ;;___ (multi lmet _)
 )
 
 (deflayermap (motionRight)
   lctrl (tap-hold 200 200 (caps-word 1000) f20)
-  ` (tap-hold 200 200 (multi lmet `) A-spc)
+  ` (multi lmet `)
   tab C-f13
   h (fork left @left5 (f20))
   ' @down5
@@ -113,11 +122,10 @@
   k (fork up @up5 (f20))
   [ @up5
   l (fork right @right5 (f20))
-  u home
-  i end
-  , pgup
-  m pgdn
-  ; (multi rctl ;)
+  u (fork home (multi ctl sft 6 kp+) (f20))
+  i (fork end (multi ctl sft 2) (f20))
+  , (fork pgup @up10 (f20))
+  m (fork pgdn @down10 (f20))
   c @copy
   v spc
   o (fork @newl @selL (lsft))
@@ -128,6 +136,8 @@
   w (multi @selWF (layer-toggle selWord1))
   ;; b (multi @skpb (layer-toggle selWord1))
   b lmet
+  ;;b (layer-toggle tilingManager)
+  ;; b f21
   e ret
   r (tap-hold 200 200 comp (layer-toggle sysLayer))
   q esc 
@@ -167,13 +177,15 @@
   i pp
   r comp
   ;;e (setmouse 0 65535)
-  e (setmouse 65535 55535)
-  t (setmouse 32767 3000)
-  y (multi rsft left)
-  o (multi rsft right)
-  u (multi rsft up)
+  ;;e (setmouse 65535 55535)
+  e (setmouse 65535 7000)
+  ;;t (setmouse 32767 3000)
+  t (setmouse 65535 65535)
+  y RS-left
+  o RS-right
+  u RS-up
+  p RS-down
 )
-
 
 ;;(deflayermap (motionsft)
 ;;  a (fork lrld S-left (lmet))
@@ -183,7 +195,7 @@
 ;;)
 
 (deflayermap (visualdel)
-  w (macro right C-left C-del)
+  w (macro right C-left C-S-right del)
   b (macro left C-right C-bspc)
   ;; l C-del
   ;; h C-bspc
@@ -195,12 +207,14 @@
   ;;o @delL
   t C-f4
   q A-f4
+  ;; p (macro M-v 500 tab ret 500 right 200 ret)
+  p @delPaste
   ___ XX
 )
 
-
 (deflayermap (selWord1)
-  y @selWB		
+  y @selWB
+  o @selWB
   l S-C-right
   h S-C-left
   k S-up
@@ -209,39 +223,66 @@
   u S-home
 )
 
-(deflayermap (selWordLeft)
-  h C-S-left
-)
-
 (deflayermap (undoLayer)
   h C-z
   j C-z
+  u C-z
   k (multi C-S-z C-y)
   l (multi C-S-z C-y)
   t C-S-t
   o @dupL
-  ___ XX  
+  a _
+  s _
+  d _
+  ___ XX
 )
 
 (deflayermap (accentLayerAgd)
+  a (macro (unicode "ã") left bspc right)
+  e (macro (unicode "é") left bspc right)
+  i (macro (unicode "í") left bspc right)
+  o (macro (unicode "õ") left bspc right)
+  u (macro (unicode "ú") left bspc right)
+  c (macro (unicode "ç") left bspc right)
+  ' (macro ' 10 ')
+  ___ _
+)
+
+(deflayermap (accentLayertil)
   a (macro (unicode "á") left bspc right)
   e (macro (unicode "é") left bspc right)
   i (macro (unicode "í") left bspc right)
   o (macro (unicode "ó") left bspc right)
   u (macro (unicode "ú") left bspc right)
   c (macro (unicode "ç") left bspc right)
-  ___ _
-)
-
-(deflayermap (accentLayertil)
-  a (macro (unicode "ã") left bspc right)
-  o (macro (unicode "õ") left bspc right)
+  ; (macro ; 10 ;)
   ___ _
 )
 
 (deflayermap (accentLayerCirc)
   a (macro (unicode "â") left bspc right)
-  o (macro (unicode "ô") left bspc right)
   e (macro (unicode "ê") left bspc right)
+  o (macro (unicode "ô") left bspc right)
+  ' (macro ' 10 ')
   ___ _
 )
+
+;;(deflayermap (tilingManager)
+;;  b (layer-switch main)
+;;  spc (layer-switch main)
+;;  rsft (layer-switch main)
+;;  lsft (layer-switch main)
+;;  tab (layer-switch main)
+;;  0 (layer-switch main)
+;;  \ (layer-switch main)
+;;  1 (multi f21 1)
+;;  2 (multi f21 2)
+;;  3 (multi f21 3)
+;;  4 (multi f21 4)
+;;  5 (multi f21 5)
+;;  6 (multi f21 6)
+;;  7 (multi f21 7)
+;;  8 (multi f21 8)
+;;  9 (multi f21 9)
+;;  __ (multi f21 _)
+;;)
