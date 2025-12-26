@@ -196,14 +196,14 @@
 ;;)
 
 (deflayermap (visualdel)
-  w (macro right C-left C-S-right del)
-  b (macro left C-right C-bspc)
+  w (macro right C-left 50 C-S-right 50 del)
+  b (macro left C-right 50 C-bspc)
   ;; l C-del
   ;; h C-bspc
-  l (macro S-C-right del)
-  h (macro S-C-left del)
-  u (macro S-home bspc)
-  i (macro S-end del)
+  l (macro S-C-right 50 del)
+  h (macro S-C-left 50 del)
+  u (macro S-home 50 bspc)
+  i (macro S-end 50 del)
   o S-del
   ;;o @delL
   t C-f4
