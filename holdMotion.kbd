@@ -181,7 +181,7 @@
   e (setmouse 65535 7000)
   ;;t (setmouse 32767 3000)
   t (setmouse 65535 65535)
-  q (macro (setmouse 19535 21767) 30 mlft (setmouse 65535 7000))
+  q (macro (setmouse 20535 22767) 30 mlft (setmouse 20535 20767) 30 mlft (setmouse 65535 7000))
   y RS-left
   o RS-right
   u RS-up
