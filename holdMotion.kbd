@@ -21,8 +21,7 @@
   save  (multi (release-key lsft) (release-key rsft) lctl s)
   copy  (tap-dance 200 ((multi (multi lctl c) (multi lctl c)) (multi lctl x)))
   paste (tap-dance 200 ((multi lctl v) (multi lmet v)))
-  ;; copy  (tap-hold 200 200 C-c (macro C-x esc))
-  ;; paste (tap-hold 200 200 C-v (macro M-v esc))
+  ;;paste (fork C-v (multi met v) (lsft))
   selWF (macro right 10 C-left 10 C-S-right)
   selWB (macro left 10 C-right 10 C-S-left)
   delPaste (macro tab ret 100 right 100 ret 100 left right)
@@ -33,8 +32,6 @@
   delL  (multi @delL1 (tap-hold 300 300 XX @delLR))
   dupL  (macro home 20 S-end C-c left right 20 end 20 ret end C-v)
   newl  (macro left right 20 end 20 ret)
-  ;; rmet  (multi rmet (layer-toggle quickMotion))
-  lmet  (multi lmet (layer-toggle lmetLayer))
   up5   (macro-repeat up up up up up 100)
   down5 (macro-repeat down down down down down 100)
   left5  (macro-repeat left left left left left 100)
@@ -48,6 +45,7 @@
   accentQuote (tap-hold 200 200 (multi ' (one-shot 200 (layer-toggle accentLayerAgd))) @quoteMacro)
   accentSemiCol (multi ; (one-shot 200 (layer-toggle accentLayertil))) 
   accentDoubleQ (tap-hold 200 200 (multi ' (one-shot 200 (layer-toggle accentLayerCirc))) @doubleQuoteMacro)
+  winOpenTray (macro M-b 300 (unmod spc))
 )	
 
 (deflayermap (main)
@@ -55,8 +53,6 @@
   ;;' @apos
   ;; lctl (tap-hold 200 200 (caps-word 1000) lctl )
   spc (tap-hold 200 200 spc (layer-toggle motionRight))
-  ;; rsft (fork rsft caps (lsft))
-  ;; lsft (fork lsft caps (rsft))
   rsft @rsftLayer
   lsft @lsftLayer
   [ (tap-hold 200 200 [ (macro [ ] (unmod left)))
@@ -64,8 +60,6 @@
   ` (tap-hold 200 200 ` (macro ` ` (unmod left)))
   ' @accentQuote
   ; @accentSemiCol
-  ;;rmet @rmet
-  lmet @lmet
   , (tap-hold 200 200 , f21)
   c (tap-hold 200 200 c f21)
   . (tap-hold 200 200 . f22)
@@ -91,8 +85,8 @@
 )
 
 (deflayermap (shiftLayer)
-  ;; lsft caps
-  ;; rsft caps
+  lsft caps
+  rsft caps
   9 (tap-hold 200 200 (unicode "(") (macro (unicode "(") (unicode ")") (unmod left)))
   0 (tap-hold 200 200 (unicode ")") (macro (unicode "(") (unicode ")") (unmod left)))
   [ (tap-hold 200 200 { (macro { } (unmod left)))
@@ -101,15 +95,6 @@
   . (tap-hold 200 200 . (macro (unicode "<") (unicode ">") (unmod left)))
   ' @accentDoubleQ
   ; (macro shft ;)
-)
-
-(deflayermap (lmetLayer)
-  q   A-f4
-  ;;f   (multi lalt (unmod kp*))
-  ;;f1  C-S-kp-
-  ;;f2  C-S-kp+
-  a   (fork a M-S-left (lsft))
-  ;;___ (multi lmet _)
 )
 
 (deflayermap (motionRight)
@@ -182,11 +167,12 @@
   ;;t (setmouse 32767 3000)
   t (setmouse 65535 65535)
   q (macro (setmouse 20535 24767) 30 mlft (setmouse 20535 20767) 30 mlft (setmouse 65535 7000))
-  w (macro (setmouse 64535 2000) 30 f11 mlft (setmouse 65535 7000) f11)
+  w (macro (setmouse 64535 2000) 30 f11 150 mlft 30 (setmouse 65535 7000) f11)
   y RS-left
   o RS-right
   u RS-up
   p RS-down
+  m @winOpenTray
 )
 
 ;;(deflayermap (motionsft)
