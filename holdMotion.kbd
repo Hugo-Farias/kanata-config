@@ -85,8 +85,8 @@
 )
 
 (deflayermap (shiftLayer)
-  lsft caps
-  rsft caps
+  ;;lsft caps
+  ;;rsft caps
   9 (tap-hold 200 200 (unicode "(") (macro (unicode "(") (unicode ")") (unmod left)))
   0 (tap-hold 200 200 (unicode ")") (macro (unicode "(") (unicode ")") (unmod left)))
   [ (tap-hold 200 200 { (macro { } (unmod left)))
@@ -107,8 +107,8 @@
   k (fork up @up5 (f20))
   [ @up5
   l (fork right @right5 (f20))
-  u (fork home (multi ctl sft 6 kp+) (f20))
-  i (fork end (multi ctl sft 2) (f20))
+  u (fork home (macro C-A-6 50 C-kp+) (f20))
+  i (fork end (multi ctl alt 2) (f20))
   , (fork pgup @up10 (f20))
   m (fork pgdn @down10 (f20))
   c @copy
