@@ -43,7 +43,7 @@
   quoteMacro (macro ' ' (unmod left))
   doubleQuoteMacro (macro ' ' (unmod left))
   accentQuote (tap-hold 200 200 (multi ' (one-shot 200 (layer-toggle accentLayerAgd))) @quoteMacro)
-  accentSemiCol (multi ; (one-shot 200 (layer-toggle accentLayertil))) 
+  accentSemiCol (fork (multi ; (one-shot 200 (layer-toggle accentLayertil))) C-; (ctl)) 
   accentDoubleQ (tap-hold 200 200 (multi ' (one-shot 200 (layer-toggle accentLayerCirc))) @doubleQuoteMacro)
   winOpenTray (macro M-b 300 (unmod spc))
 )	
@@ -167,7 +167,9 @@
   ;;t (setmouse 32767 3000)
   t (setmouse 65535 65535)
   q (macro (setmouse 20535 24767) 30 mlft (setmouse 20535 20767) 30 mlft (setmouse 65535 7000))
-  w (macro (setmouse 64535 2000) 30 f11 150 mlft 30 (setmouse 65535 7000) f11)
+  ;;w (macro (setmouse 64535 2000) 30 f11 200 mlft 30 (setmouse 65535 7000) f11)
+  w (macro (setmouse 30000 17000) 30 mlft (setmouse 65535 7000))
+  ;;w (setmouse 30000 17000)
   y RS-left
   o RS-right
   u RS-up
